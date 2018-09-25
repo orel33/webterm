@@ -4,12 +4,17 @@
 
 ```bash
 npm install wetty
+npm install xterm
 ```
 
 ## Documentation
 
 * https://www.npmjs.com/package/wetty
 * https://github.com/krishnasrinivas/wetty
+* https://github.com/billchurch/WebSSH2
+* https://socket.io/
+* https://www.npmjs.com/package/xterm
+
 
 ### Start this Demo
 

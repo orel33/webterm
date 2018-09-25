@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Wetty based on Xterm.js</title>
+    <link rel="stylesheet" href="/xterm/xterm/xterm.css" />    
+    <script src="/xterm/xterm/xterm.js"></script>
+    <script src="/xterm/xterm/addons/fit/fit.js"></script>
+    <!-- <script src="/xterm/xterm/addons/attach/attach.js"></script> -->
+    <script src="/wetty/socket.io/socket.io.js"></script> <!-- ??? -->
+
+    <style>
+        html,
+        body {
+            height: 100%;
+            padding: 0;
+            width: 100%;
+            margin: 0px;
+        }
+
+        #terminal {
+            display: block;
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+
+    <body>
+        <div id="terminal"></div>
+        <script src="myterm.js"></script>
+    </body>
+
+</html>

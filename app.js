@@ -16,22 +16,6 @@ var opts = require('optimist')
             demand: false,
             description: 'path to SSL certificate'
         },
-        sshhost: {
-            demand: false,
-            description: 'ssh server host'
-        },
-        sshport: {
-            demand: false,
-            description: 'ssh server port'
-        },
-        sshuser: {
-            demand: false,
-            description: 'ssh user'
-        },
-        sshauth: {
-            demand: false,
-            description: 'defaults to "password", you can use "publickey,password" instead'
-        },
         port: {
             demand: true,
             alias: 'p',
@@ -40,26 +24,6 @@ var opts = require('optimist')
     }).boolean('allow_discovery').argv;
 
 var runhttps = false;
-var sshport = 22;
-var sshhost = 'localhost';
-var sshauth = 'password';
-var globalsshuser = '';
-
-if (opts.sshport) {
-    sshport = opts.sshport;
-}
-
-if (opts.sshhost) {
-    sshhost = opts.sshhost;
-}
-
-if (opts.sshauth) {
-	sshauth = opts.sshauth
-}
-
-if (opts.sshuser) {
-    globalsshuser = opts.sshuser;
-}
 
 if (opts.sslkey && opts.sslcert) {
     runhttps = true;
@@ -68,67 +32,56 @@ if (opts.sslkey && opts.sslcert) {
     opts.ssl['cert'] = fs.readFileSync(path.resolve(opts.sslcert));
 }
 
-process.on('uncaughtException', function(e) {
+process.on('uncaughtException', function (e) {
     console.error('Error: ' + e);
 });
 
 var httpserv;
 
 var app = express();
-app.get('/wetty/ssh/:user', function(req, res) {
-    res.sendfile(__dirname + '/public/wetty/index.html');
-});
+
 app.use('/', express.static(path.join(__dirname, 'public')));
 
 if (runhttps) {
-    httpserv = https.createServer(opts.ssl, app).listen(opts.port, function() {
+    httpserv = https.createServer(opts.ssl, app).listen(opts.port, function () {
         console.log('https on port ' + opts.port);
     });
 } else {
-    httpserv = http.createServer(app).listen(opts.port, function() {
+    httpserv = http.createServer(app).listen(opts.port, function () {
         console.log('http on port ' + opts.port);
     });
 }
 
-var io = server(httpserv,{path: '/wetty/socket.io'});
-io.on('connection', function(socket){
-    var sshuser = '';
+var io = server(httpserv, { path: '/wetty/socket.io' });
+io.on('connection', function (socket) {
     var request = socket.request;
-    console.log((new Date()) + ' Connection accepted.');
-    if (match = request.headers.referer.match('/wetty/ssh/.+$')) {
-        sshuser = match[0].replace('/wetty/ssh/', '') + '@';
-    } else if (globalsshuser) {
-        sshuser = globalsshuser + '@';
-    }
+    console.log((new Date()) + ' -- Connection accepted.');
 
-    var term;
-    if (process.getuid() == 0) {
-        term = pty.spawn('/bin/login', [], {
-            name: 'xterm-256color',
-            cols: 80,
-            rows: 30
-        });
-    } else {
-        term = pty.spawn('ssh', [sshuser + sshhost, '-p', sshport, '-o', 'PreferredAuthentications=' + sshauth], {
-            name: 'xterm-256color',
-            cols: 80,
-            rows: 30
-        });
-    }
-    console.log((new Date()) + " PID=" + term.pid + " STARTED on behalf of user=" + sshuser)
-    term.on('data', function(data) {
+    var term = pty.spawn('bash', [], {
+        name: 'xterm-256color',
+        cols: 80,
+        rows: 30
+    });
+
+    term.on('data', function (data) {
         socket.emit('output', data);
     });
-    term.on('exit', function(code) {
-        console.log((new Date()) + " PID=" + term.pid + " ENDED")
+
+    term.on('exit', function (code) {
+        console.log((new Date()) + " -- terminal pid=" + term.pid + " ended")
     });
-    socket.on('resize', function(data) {
+
+    socket.on('resize', function (data) {
+        console.log((new Date()) + " -- resize terminal col=" + data.col + ", row=" + data.row);
         term.resize(data.col, data.row);
     });
-    socket.on('input', function(data) {
+
+    socket.on('input', function (data) {
         term.write(data);
     });
-    socket.on('disconnect', function() {
+
+    socket.on('disconnect', function () {
         term.end();
     });
-})
+
+});
