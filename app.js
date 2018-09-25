@@ -40,22 +40,31 @@ var httpserv;
 
 var app = express();
 
+// regular middleware
+app.use(function (req, res, next) {
+    console.log((new Date()) + " -- " + req.method + " " + req.url);
+    next(); // let's continue with next middleware...
+});
+
 app.use('/', express.static(path.join(__dirname, 'public')));
 
 if (runhttps) {
     httpserv = https.createServer(opts.ssl, app).listen(opts.port, function () {
-        console.log('https on port ' + opts.port);
+        console.log((new Date()) + ' -- https on port ' + opts.port);
     });
 } else {
     httpserv = http.createServer(app).listen(opts.port, function () {
-        console.log('http on port ' + opts.port);
+        console.log((new Date()) + ' -- http on port ' + opts.port);
     });
 }
 
-var io = server(httpserv, { path: '/wetty/socket.io' });
+// var io = server(httpserv, { path: '/wetty/socket.io' });
+
+var io = server(httpserv, { path: '/socket.io' });
+
 io.on('connection', function (socket) {
     var request = socket.request;
-    console.log((new Date()) + ' -- Connection accepted.');
+    console.log((new Date()) + ' -- connection accepted with session ID ' + socket.handshake.sessionID);
 
     var term = pty.spawn('bash', [], {
         name: 'xterm-256color',

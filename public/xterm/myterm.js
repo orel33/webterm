@@ -1,4 +1,8 @@
-var socket = io(location.origin, { path: '/wetty/socket.io' })
+
+
+// var socket = io(location.origin, { path: '/wetty/socket.io' });
+var socket = io(location.origin, { path: '/socket.io' });
+
 
 Terminal.applyAddon(fit);     // Apply the `fit` addon
 
@@ -12,7 +16,6 @@ window.addEventListener('resize', resizeScreen, false);
 
 function resizeScreen() {
     term.fit();
-    // socket.emit('resize', { cols: term.cols, rows: term.rows });
     socket.emit('resize', { col: term.cols, row: term.rows } );
 }
 
@@ -25,12 +28,10 @@ socket.on('output', function (data) {
 });
 
 socket.on('connect', function () {
-
     // cursorBlink: (validator.isBoolean(req.query.cursorBlink + '') ? myutil.parseBool(req.query.cursorBlink) : config.terminal.cursorBlink);
     // scrollback: (validator.isInt(req.query.scrollback + '', { min: 1, max: 200000 }) && req.query.scrollback) ? req.query.scrollback : config.terminal.scrollback;
     // tabStopWidth: (validator.isInt(req.query.tabStopWidth + '', { min: 1, max: 100 }) && req.query.tabStopWidth) ? req.query.tabStopWidth : config.terminal.tabStopWidth;
     // bellStyle: ((req.query.bellStyle) && (['sound', 'none'].indexOf(req.query.bellStyle) > -1)) ? req.query.bellStyle : config.terminal.bellStyle;
-
     term.setOption('cursorBlink', 'true');
     // term.setOption('scrollback', '???'),
     // term.setOption('tabStopWidth', '???'),
@@ -44,4 +45,4 @@ socket.on('disconnect', function () {
 
 socket.on('error', function (err) {
     console.log("Socket.io error" + err);
-})
+});

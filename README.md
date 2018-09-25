@@ -3,8 +3,9 @@
 ## Install
 
 ```bash
-npm install wetty
+npm install wetty      # to remove
 npm install xterm
+npm install socket.io
 ```
 
 ## Documentation
