@@ -9,7 +9,7 @@ The main difference with the Wetty project is that we use the package *xterm.js*
 By default, "npm install" will install all modules listed as dependencies in 'package.json'. 
 
 ```bash
-git clone https://github.com/orel33/qemunetweb.git
+git clone https://github.com/orel33/webterm.git
 npm install
 ```
 
