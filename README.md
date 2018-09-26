@@ -2,7 +2,7 @@
 
 Here is a simple demo of a web terminal (over HTTP or HTTPS). It is initially based on the Wetty project. It uses WebSocket (socket.io) for "real-time" communication between a backend command (e.g. bash) running on a *node.js* server and a frontend presentation in your browser (based on xterm.js). An *express* web server is also used on the 'node.js' server, to serve some static pages.
 
-The main difference with the Wetty project is that we uses the package *xterm.js* instead of *hterm* package for the terminal presentation on web client-side (your brower).
+The main difference with the Wetty project is that we use the package *xterm.js* instead of *hterm* package for the terminal presentation on web client-side (your brower).
 
 ## Install
 
