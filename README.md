@@ -4,7 +4,7 @@ Here is a simple demo of a web terminal (over HTTP or HTTPS). It is initially ba
 
 The main difference with the Wetty project is that we use the package *xterm.js* instead of *hterm* package for the terminal presentation on web client-side (your brower).
 
-## Install
+## Dowload and Install
 
 By default, "npm install" will install all modules listed as dependencies in 'package.json'. 
 
@@ -21,6 +21,8 @@ node app.js -p 3000
 
 Then open http://localhost:3000/xterm with a modern browser... to get the original demo based on Wetty, open http://localhost:3000/wetty.
 
+
+## Dev Corner
 
 ### How to handle dependencies both on server-side (node.js)?
 
