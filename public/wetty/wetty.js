@@ -1,5 +1,8 @@
 var term;
-var socket = io(location.origin, {path: '/wetty/socket.io'})
+
+var socket = io(location.origin, { path: '/socket.io' });
+// var socket = io(location.origin, {path: '/wetty/socket.io'});
+
 var buf = '';
 
 function Wetty(argv) {
@@ -10,7 +13,6 @@ function Wetty(argv) {
 
 Wetty.prototype.run = function() {
     this.io = this.argv_.io.push();
-
     this.io.onVTKeystroke = this.sendString_.bind(this);
     this.io.sendString = this.sendString_.bind(this);
     this.io.onTerminalResize = this.onTerminalResize.bind(this);
@@ -38,6 +40,7 @@ socket.on('connect', function() {
         term.prefs_.set('use-default-window-copy', true);
 
         term.runCommandClass(Wetty, document.location.hash.substr(1));
+
         socket.emit('resize', {
             col: term.screenSize.width,
             row: term.screenSize.height

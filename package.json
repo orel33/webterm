@@ -1,0 +1,28 @@
+{
+  "name": "qemunetweb",
+  "version": "1.0.0",
+  "description": "## Install",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/orel33/qemunetweb.git"
+  },
+  "keywords": [],
+  "author": "orel33 <aurelien.esnard@u-bordeaux.fr>",
+  "license": "GPL-3.0-only",
+  "bugs": {
+    "url": "https://github.com/orel33/qemunetweb/issues"
+  },
+  "homepage": "https://github.com/orel33/qemunetweb#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "optimist": "^0.6.1",
+    "pty.js": "^0.3.1",
+    "socket.io": "^2.1.1",
+    "xterm": "^3.7.0"
+  },
+  "devDependencies": {}
+}
