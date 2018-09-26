@@ -1,4 +1,8 @@
-# README
+# Another Web Terminal Demo
+
+Here is a simple demo of a web terminal (over HTTP or HTTPS). It is initially based on the Wetty project. It uses WebSocket (socket.io) for "real-time" communication between a backend command (e.g. bash) running on a *node.js* server and a frontend presentation in your browser (based on xterm.js). An *express* web server is also used on the 'node.js' server, to serve some static pages.
+
+The main difference with the Wetty project is that we uses the package *xterm.js* instead of *hterm* package for the terminal presentation on web client-side (your brower).
 
 ## Install
 
@@ -8,6 +12,15 @@ By default, "npm install" will install all modules listed as dependencies in 'pa
 git clone https://github.com/orel33/qemunetweb.git
 npm install
 ```
+
+## Start this Demo
+
+```bash
+node app.js -p 3000
+```
+
+Then open http://localhost:3000/xterm with a modern browser... to get the original demo based on Wetty, open http://localhost:3000/wetty.
+
 
 ### How to handle dependencies both on server-side (node.js)?
 
@@ -34,14 +47,6 @@ npm install optimist --save
 
 * socket.io-client is automatically exposed by node.js server. how exactly?
 * https://stackoverflow.com/questions/12893046/how-to-manage-client-side-javascript-dependencies
-
-
-## Start this Demo
-
-```bash
-node app.js -p 3000
-```
-Then open http://localhost:3000 with a modern browser...
 
 ## Documentation
 
