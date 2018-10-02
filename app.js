@@ -7,6 +7,7 @@ var pty = require('pty.js');
 var fs = require('fs');
 var expresssession = require("express-session");
 var sharedsession = require("express-socket.io-session");
+var cookieparser = require('cookie-parser');
 
 var opts = require('optimist')
     .options({
@@ -48,12 +49,19 @@ var session = expresssession({
     saveUninitialized: true
 });
 
+// need cookieParser middleware before we can do anything with cookies
+app.use(cookieparser());
+
 // Attach session
 app.use(session);
 
 // regular middleware
 app.use(function (req, res, next) {
-    console.log((new Date()) + " -- " + req.method + " " + req.url);
+    console.log((new Date()) + " -- " + req.method + " " + req.url + '(sid=\"' + req.sessionID + '\")');
+    console.log(req.cookies);
+    // var sid = req.cookies["sid"];
+    // if (!sid) res.cookie("sid", "orel"); // set cookie on the very first time!
+    // req.session.working = "yes!";        // set session data (on server side)
     next(); // let's continue with next middleware...
 });
 
@@ -69,8 +77,6 @@ if (runhttps) {
     });
 }
 
-// var io = server(httpserv, { path: '/wetty/socket.io' });
-
 var io = server(httpserv, { path: '/socket.io' });
 
 // Share session with io sockets
@@ -78,7 +84,7 @@ io.use(sharedsession(session));
 
 io.on('connection', function (socket) {
     var request = socket.request;
-    console.log((new Date()) + ' -- connection accepted with session ID ' + socket.handshake.sessionID);
+    console.log((new Date()) + ' -- Web Socket connection accepted (sid=\"' + socket.handshake.sessionID + '\")');
 
     var term = pty.spawn('bash', [], {
         name: 'xterm-256color',
