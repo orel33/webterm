@@ -43,6 +43,8 @@ npm install socket.io --save
 npm install express --save
 npm install pty.js --save
 npm install optimist --save
+npm install express-session --save
+npm install express-socket.io-session --save
 ```
 
 ### How to handle dependencies both on client-side (bowser)?

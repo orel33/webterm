@@ -5,6 +5,8 @@ var path = require('path');
 var server = require('socket.io');
 var pty = require('pty.js');
 var fs = require('fs');
+var expresssession = require("express-session");
+var sharedsession = require("express-socket.io-session");
 
 var opts = require('optimist')
     .options({
@@ -40,6 +42,15 @@ var httpserv;
 
 var app = express();
 
+var session = expresssession({
+    secret: "my-secret",
+    resave: true,
+    saveUninitialized: true
+});
+
+// Attach session
+app.use(session);
+
 // regular middleware
 app.use(function (req, res, next) {
     console.log((new Date()) + " -- " + req.method + " " + req.url);
@@ -61,6 +72,9 @@ if (runhttps) {
 // var io = server(httpserv, { path: '/wetty/socket.io' });
 
 var io = server(httpserv, { path: '/socket.io' });
+
+// Share session with io sockets
+io.use(sharedsession(session));
 
 io.on('connection', function (socket) {
     var request = socket.request;
