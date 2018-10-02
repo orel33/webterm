@@ -1,8 +1,6 @@
 
-
 // var socket = io(location.origin, { path: '/wetty/socket.io' });
 var socket = io(location.origin, { path: '/socket.io' });
-
 
 Terminal.applyAddon(fit);     // Apply the `fit` addon
 

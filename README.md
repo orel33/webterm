@@ -4,9 +4,9 @@ Here is a simple demo of a web terminal (over HTTP or HTTPS). It is initially ba
 
 The main difference with the Wetty project is that we use the package *xterm.js* instead of *hterm* package for the terminal presentation on web client-side (your brower).
 
-## Dowload and Install
+## Download and Install
 
-By default, "npm install" will install all modules listed as dependencies in 'package.json'. 
+By default, "npm install" will install all modules listed as dependencies in 'package.json'.
 
 ```bash
 git clone https://github.com/orel33/webterm.git
@@ -57,6 +57,8 @@ Useful packages:
 * https://www.npmjs.com/package/socket.io + https://socket.io/
 * https://www.npmjs.com/package/socket.io-client
 * https://www.npmjs.com/package/xterm
+* https://www.npmjs.com/package/express-socket.io-session
+
 
 Package manager for JavaScript (NPM):
 
