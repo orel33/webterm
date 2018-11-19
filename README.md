@@ -24,7 +24,7 @@ Then open http://localhost:3000/xterm with a modern browser... to get the origin
 
 ## Dev Corner
 
-### How to handle dependencies both on server-side (node.js)?
+### How to handle dependencies on server-side (node.js)?
 
 To build a default 'package.json', run npm init with the --yes or -y flag:
 
@@ -47,7 +47,13 @@ npm install express-session --save
 npm install express-socket.io-session --save
 ```
 
-### How to handle dependencies both on client-side (bowser)?
+To init ESLint:
+
+```bash
+eslint --init
+```
+
+### How to handle dependencies on client-side (browser)?
 
 * socket.io-client is automatically exposed by node.js server. how exactly?
 * https://stackoverflow.com/questions/12893046/how-to-manage-client-side-javascript-dependencies

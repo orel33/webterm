@@ -7,7 +7,15 @@ var pty = require('pty.js');
 var fs = require('fs');
 var expresssession = require("express-session");
 var sharedsession = require("express-socket.io-session");
-var cookieparser = require('cookie-parser');
+// var cookieparser = require('cookie-parser');
+
+/**
+ *  Auxialiary Functions
+ */
+
+function clog(message) {
+    console.log((new Date()) + ' -- ' + message); // change date format
+}
 
 var opts = require('optimist')
     .options({
@@ -50,15 +58,17 @@ var session = expresssession({
 });
 
 // need cookieParser middleware before we can do anything with cookies
-app.use(cookieparser());
+// app.use(cookieparser()); // no need to use it...
 
-// Attach session
+// Use express-session middleware for express
 app.use(session);
 
 // regular middleware
-app.use(function (req, res, next) {
-    console.log((new Date()) + " -- " + req.method + " " + req.url + '(sid=\"' + req.sessionID + '\")');
-    console.log(req.cookies);
+app.use(function (req, res, next) {  
+    clog(req.method + " " + req.url + " from " + req. ip + " (sid=" + req.sessionID + ")");
+    // console.log((new Date()) + " -- " + req.method + " " + req.url + ID);
+    // console.log(req.cookies);
+    // console.log(req.session);    
     // var sid = req.cookies["sid"];
     // if (!sid) res.cookie("sid", "orel"); // set cookie on the very first time!
     // req.session.working = "yes!";        // set session data (on server side)
@@ -69,22 +79,26 @@ app.use('/', express.static(path.join(__dirname, 'public')));
 
 if (runhttps) {
     httpserv = https.createServer(opts.ssl, app).listen(opts.port, function () {
-        console.log((new Date()) + ' -- https on port ' + opts.port);
+        clog('Listen https on port ' + opts.port);
     });
 } else {
     httpserv = http.createServer(app).listen(opts.port, function () {
-        console.log((new Date()) + ' -- http on port ' + opts.port);
+        clog('Listen http on port ' + opts.port);
     });
 }
 
-var io = server(httpserv, { path: '/socket.io' });
+var io = server(httpserv, {
+    path: '/socket.io'
+});
 
-// Share session with io sockets
-io.use(sharedsession(session));
+// Use shared session middleware for socket.io
+io.use(sharedsession(session, { autoSave:true }));
 
 io.on('connection', function (socket) {
-    var request = socket.request;
-    console.log((new Date()) + ' -- Web Socket connection accepted (sid=\"' + socket.handshake.sessionID + '\")');
+    var ID = '(addr=' + socket.handshake.address + ', sid=' + socket.handshake.sessionID +')';
+    // var request = socket.request;
+    clog('Web Socket connection accepted from ' + socket.handshake.address + ' (sid='+ socket.handshake.sessionID + ')');
+    // console.log(socket);
 
     var term = pty.spawn('bash', [], {
         name: 'xterm-256color',
@@ -92,16 +106,32 @@ io.on('connection', function (socket) {
         rows: 30
     });
 
+    clog("Launch terminal with pid=" + term.pid);
+
     term.on('data', function (data) {
         socket.emit('output', data);
     });
 
     term.on('exit', function (code) {
-        console.log((new Date()) + " -- terminal pid=" + term.pid + " ended")
+        clog("Exit terminal with pid=" + term.pid);
     });
 
+    // // login
+    // socket.on("login", function (userdata) {
+    //     socket.handshake.session.userdata = userdata;
+    //     socket.handshake.session.save();
+    // });
+
+    // // logout
+    // socket.on("logout", function (userdata) {
+    //     if (socket.handshake.session.userdata) {
+    //         delete socket.handshake.session.userdata;
+    //         socket.handshake.session.save();
+    //     }
+    // });
+
     socket.on('resize', function (data) {
-        console.log((new Date()) + " -- resize terminal col=" + data.col + ", row=" + data.row);
+        clog("Resize terminal " + data.col + "x" + data.row); // col x row
         term.resize(data.col, data.row);
     });
 
@@ -110,7 +140,8 @@ io.on('connection', function (socket) {
     });
 
     socket.on('disconnect', function () {
-        term.end();
+        clog("Connection closed from " + socket.handshake.address + ".");
+        term.end(); // or term.kill();
     });
 
 });
