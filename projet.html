@@ -1,0 +1,68 @@
+<html>
+
+<head>
+    <title> Projets de Programmation 2018-2019 -
+        Master 1 Informatique </title>
+</head>
+
+<body>
+
+    <h1> Projets de Programmation 2018-2019 - Master 1 Informatique </h1>
+    <hr>
+    <h4> <b> Mise en oeuvre sur le web d'un réseau virtuel de machines virtuelles</b> </h4>
+    <hr>
+    <ul>
+        <li>
+            <h4> Nom(s) du (des) clients du projet, laboratoire(s), email(s) : </h4>
+            <p> Esnard Aurélien, Université de Bordeaux, esnard@u-bordeaux.fr (Inria, 2ème étage, équipe HiePACS,
+                campus Peixotto). </p>
+        <li>
+            <h4> Description du sujet de projet, et outils logiciels: </h4>
+            <p> Comment apprendre le réseau ? Comment apprendre à configurer les IPs, le routage, le firewall et les
+                divers services réseaux (DNS, LDAP, ...) ? Dans le cadre de plusieurs UEs "réseau" en Licence et en
+                Master, nous utilisons des réseaux virtuels de machines virtuelles. Cela permet typiquement à chaque
+                étudiant de disposer sur un simple PC du CREMI d'une topologie réseau (plus ou moins complexe) avec une
+                console root ouverte en mode texte pour chaque machine virtuelle. Comme par exemple, un simple réseau
+                local Ethernet de 4 machines Debian/Linux. Ainsi, les étudiants sont immergés en situation réelle: ils
+                ont accès à de "vraies" machines et bénéficient des mêmes droits qu'un administrateur, mais sans le
+                rique de tout casser !</p>
+
+            <p>Pour ce faire, nous avons mis en place l'outil <em>QemuNet</em> qui se présente comme un script Bash et
+                utilise des technologies standards comme Qemu pour le déploiement de machines virtuelles Linux ou
+                autres. Cet outil est installé au CREMI, mais notre expérience nous montre que cet outil n'est pas si
+                facile à installer "à la maison" pour nos étudiants.</p>
+
+            <p>Dans ce contexte, le but du projet est d'offrir une solution web à l'outil QemuNet, afin que les
+                étudiants puissent accéder à des réseaux virtuels QemuNet à l'aide d'un simple navigateur web ! La
+                solution envisagée sera programmée en JavaScript et reposera sur le framework <em>Node.js</em> avec le
+                module <em>Express</em> pour la partie web, le module <em>Xterm.js</em> pour la présentation des
+                terminaux en ligne, et les websockets (module <em>socket.io</em>) pour effectuer des communications
+                efficaces entre les machines virtuelles et leurs représentations web.</p>
+
+            <p>Au final, la solution proposée sera déployée en vraie grandeur dans l'environnement du CREMI (serveur
+                web Apache2), avec un serveur applicatif dédié au lancement des machines virtuelles Qemu.</p>
+
+        <li>
+            <h4> Références principales :</h4>
+            <ul>
+                <li>QemuNet : https://github.com/orel33/qemunet</li>
+                <li>Qemu : http://wiki.qemu.org</li>
+                <li>Node.js : https://fr.wikipedia.org/wiki/Node.js </li>
+                <li>NPM : https://fr.wikipedia.org/wiki/Npm </li>
+                <li>Express : https://www.npmjs.com/package/express </li>
+                <li>Xterm.js : https://www.npmjs.com/package/xterm </li>
+                <li>WebSocket : https://socket.io/ </li>
+            </ul>
+        <li>
+            <h4> Références annexes :</h4>
+            <ul>
+                <li>express-socket.io-session : https://www.npmjs.com/package/express-socket.io-session</li>
+                <li>Wetty : https://www.npmjs.com/package/wetty</li>
+                <li>webssh2 : https://www.npmjs.com/package/webssh2</li>
+            </ul>
+
+    </ul>
+    <hr>
+</body>
+
+</html>
