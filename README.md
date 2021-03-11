@@ -70,4 +70,5 @@ Package manager for JavaScript (NPM):
 
 * https://www.npmjs.com/package/wetty (socket.io + hterm)
 * https://www.npmjs.com/package/webssh2 (socket.io + xterm.js)
+* https://saisandeepvaddi.com/blog/how-to-create-web-based-terminals
 
