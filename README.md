@@ -58,8 +58,6 @@ npm install optimist --save
 
 * clean code (remove session, https, ...)
 * try to use the lateste release of xterm.js (version "^4.18.0")
-* clean code...
-
 
 ---
 <aurelien.esnard@u-bordeaux.fr>
