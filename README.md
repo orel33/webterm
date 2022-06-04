@@ -48,31 +48,18 @@ npm install node-pty --save
 npm install optimist --save
 ```
 
-### How to handle dependencies both on client-side (bowser)?
-
-* socket.io-client is automatically exposed by node.js server. how exactly?
-* https://stackoverflow.com/questions/12893046/how-to-manage-client-side-javascript-dependencies
-
-## Documentation
-
-Useful packages:
-
-* https://www.npmjs.com/package/socket.io + https://socket.io/
-* https://www.npmjs.com/package/socket.io-client
-* https://www.npmjs.com/package/xterm
-* https://www.npmjs.com/package/express-socket.io-session
-
-Package manager for JavaScript (NPM):
-
-* https://docs.npmjs.com/cli/install
-* https://docs.npmjs.com/getting-started/using-a-package.json
-* https://docs.npmjs.com/files/package.json
-
 ## Related Projects
 
 * https://www.npmjs.com/package/wetty (socket.io + hterm)
 * https://www.npmjs.com/package/webssh2 (socket.io + xterm.js)
 * https://saisandeepvaddi.com/blog/how-to-create-web-based-terminals
+
+## Bugs and Todo List
+
+* clean code (remove session, https, ...)
+* try to use the lateste release of xterm.js (version "^4.18.0")
+* clean code...
+
 
 ---
 <aurelien.esnard@u-bordeaux.fr>
