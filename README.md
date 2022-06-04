@@ -62,7 +62,6 @@ Useful packages:
 * https://www.npmjs.com/package/xterm
 * https://www.npmjs.com/package/express-socket.io-session
 
-
 Package manager for JavaScript (NPM):
 
 * https://docs.npmjs.com/cli/install
