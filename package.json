@@ -1,28 +1,27 @@
 {
-  "name": "qemunetweb",
+  "name": "webterm.github",
   "version": "1.0.0",
-  "description": "## Install",
+  "description": "Here is a simple demo of a web terminal (over HTTP or HTTPS). It was initially based on the Wetty project. It uses WebSocket (socket.io) for \"real-time\" communication between a backend command (e.g. bash) running on a *node.js* server and a frontend presentation in your browser (based on xterm.js). An *express* web server is also used on the 'node.js' server, to serve some static pages.",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/orel33/qemunetweb.git"
+    "url": "git+https://github.com/orel33/webterm.git"
   },
   "keywords": [],
   "author": "orel33 <aurelien.esnard@u-bordeaux.fr>",
   "license": "GPL-3.0-only",
   "bugs": {
-    "url": "https://github.com/orel33/qemunetweb/issues"
+    "url": "https://github.com/orel33/webterm/issues"
   },
-  "homepage": "https://github.com/orel33/qemunetweb#readme",
+  "homepage": "https://github.com/orel33/webterm#readme",
   "dependencies": {
-    "express": "^4.16.3",
+    "express": "^4.18.1",
+    "node-pty": "^0.10.1",
     "optimist": "^0.6.1",
-    "node-pty": "0.9.0",
-    "socket.io": "^2.1.1",
-    "xterm": "^3.7.0"
-  },
-  "devDependencies": {}
+    "socket.io": "^4.5.1",
+    "xterm": "^4.18.0"
+  }
 }
