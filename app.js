@@ -19,7 +19,7 @@ var opts = require('optimist')
         port: {
             demand: true,
             alias: 'p',
-            description: 'wetty listen port'
+            description: 'listen port'
         },
     }).boolean('allow_discovery').argv;
 

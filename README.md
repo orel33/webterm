@@ -1,8 +1,11 @@
 # Another Web Terminal Demo
 
-Here is a simple demo of a web terminal (over HTTP or HTTPS). It is initially based on the Wetty project. It uses WebSocket (socket.io) for "real-time" communication between a backend command (e.g. bash) running on a *node.js* server and a frontend presentation in your browser (based on xterm.js). An *express* web server is also used on the 'node.js' server, to serve some static pages.
-
-The main difference with the Wetty project is that we use the package *xterm.js* instead of *hterm* package for the terminal presentation on web client-side (your brower).
+Here is a simple demo of a web terminal (over HTTP or HTTPS). It was initially
+based on the Wetty project. It uses WebSocket (socket.io) for "real-time"
+communication between a backend command (e.g. bash) running on a *node.js*
+server and a frontend presentation in your browser (based on xterm.js). An
+*express* web server is also used on the 'node.js' server, to serve some static
+pages.
 
 ## Download and Install
 
@@ -19,7 +22,7 @@ npm install
 node app.js -p 3000
 ```
 
-Then open http://localhost:3000/xterm with a modern browser... to get the original demo based on Wetty, open http://localhost:3000/wetty.
+Then open <http://localhost:3000> with a modern browser...
 
 
 ## Dev Corner
@@ -41,7 +44,7 @@ Let's install some dependencies and save it in the file 'package.json':
 npm install xterm --save
 npm install socket.io --save
 npm install express --save
-npm install pty.js --save
+npm install node-pty --save
 npm install optimist --save
 ```
 
@@ -72,3 +75,5 @@ Package manager for JavaScript (NPM):
 * https://www.npmjs.com/package/webssh2 (socket.io + xterm.js)
 * https://saisandeepvaddi.com/blog/how-to-create-web-based-terminals
 
+---
+<aurelien.esnard@u-bordeaux.fr>
